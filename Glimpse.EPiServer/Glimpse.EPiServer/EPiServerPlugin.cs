@@ -1,5 +1,7 @@
 ﻿using Glimpse.AspNet.Extensibility;
 using Glimpse.Core.Extensibility;
+using Glimpse.AspNet.Extensions;
+using EPiServer.Core;
 
 namespace Glimpse.EPiServer
 {
@@ -7,6 +9,10 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(ITabContext context)
         {
+            var httpContext = context.GetHttpContext();
+            string url = httpContext.Request.RawUrl;
+
+
             return new object();
         }
 
