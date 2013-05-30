@@ -11,6 +11,8 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(Core.Extensibility.ITabContext context)
         {
+            // Alpha-ordered list of dynprops
+
             return new object();
         }
 

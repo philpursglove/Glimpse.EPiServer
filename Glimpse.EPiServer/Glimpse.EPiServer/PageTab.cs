@@ -11,6 +11,10 @@ namespace Glimpse.EPiServer
             var httpContext = context.GetHttpContext();
             string url = httpContext.Request.RawUrl;
 
+            // Page type
+            // Possible child page types?
+            // version
+            // publish date
 
             return new object();
         }
