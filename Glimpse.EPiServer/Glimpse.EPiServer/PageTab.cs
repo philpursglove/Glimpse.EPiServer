@@ -1,11 +1,10 @@
 ﻿using Glimpse.AspNet.Extensibility;
 using Glimpse.Core.Extensibility;
 using Glimpse.AspNet.Extensions;
-using EPiServer.Core;
 
 namespace Glimpse.EPiServer
 {
-    public class EPiServerPlugin : AspNetTab
+    public class PageTab : AspNetTab
     {
         public override object GetData(ITabContext context)
         {
@@ -20,7 +19,7 @@ namespace Glimpse.EPiServer
         {
             get
             {
-                return "EPiServer";
+                return "Page Details";
             }
         }
 
