@@ -1,6 +1,11 @@
-﻿using Glimpse.AspNet.Extensibility;
-using Glimpse.Core.Extensibility;
+﻿using System.Collections.Generic;
+using System.Globalization;
+
+using EPiServer.Core;
+
+using Glimpse.AspNet.Extensibility;
 using Glimpse.AspNet.Extensions;
+using Glimpse.Core.Extensibility;
 
 namespace Glimpse.EPiServer
 {
@@ -8,15 +13,20 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(ITabContext context)
         {
-            var httpContext = context.GetHttpContext();
-            string url = httpContext.Request.RawUrl;
+            Dictionary<string, string> tabData = new Dictionary<string, string>();
 
-            // Page type
+            PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
+            PageData currentPageData = new PageData(currentPageRef);
+
+            tabData.Add("Page Name", currentPageData.PageName);
+            tabData.Add("Page Type", currentPageData.PageTypeName);
+            tabData.Add("Start Publish", currentPageData.StartPublish.ToString(CultureInfo.InvariantCulture));
+            tabData.Add("Stop Publish", currentPageData.StopPublish.ToString(CultureInfo.InvariantCulture));
+
             // Possible child page types?
             // version
-            // publish date
 
-            return new object();
+            return tabData;
         }
 
         public override string Name
