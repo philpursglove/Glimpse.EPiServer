@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+
+using EPiServer.Core;
+using EPiServer.DataAbstraction;
 
 using Glimpse.AspNet.Extensibility;
+using Glimpse.AspNet.Extensions;
 
 namespace Glimpse.EPiServer
 {
@@ -11,9 +12,18 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(Core.Extensibility.ITabContext context)
         {
-            // Alpha-ordered list of dynprops
+            Dictionary<string, string> tabData = new Dictionary<string, string>();
 
-            return new object();
+            PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
+            DynamicPropertyCollection dynprops = DynamicProperty.ListForPage(currentPageRef);
+
+            foreach (DynamicProperty dynprop in dynprops)
+            {
+                PropertyData prop = dynprop.PropertyValue;
+                tabData.Add(prop.Name, prop.Value.ToString());
+            }
+
+            return tabData;
         }
 
         public override string Name
