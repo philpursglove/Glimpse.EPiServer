@@ -12,7 +12,7 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(Core.Extensibility.ITabContext context)
         {
-            Dictionary<string, string> tabData = new Dictionary<string, string>();
+            SortedDictionary<string, string> tabData = new SortedDictionary<string, string>();
 
             PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
             DynamicPropertyCollection dynprops = DynamicProperty.ListForPage(currentPageRef);
