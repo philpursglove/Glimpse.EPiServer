@@ -14,7 +14,8 @@ namespace Glimpse.EPiServer
         {
             SortedDictionary<string, string> tabData = new SortedDictionary<string, string>();
 
-            PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
+            PageReference currentPageRef = EPiServerDataFactory.GetPageReference(
+                context.GetHttpContext().Request.RawUrl);
             DynamicPropertyCollection dynprops = DynamicProperty.ListForPage(currentPageRef);
 
             foreach (DynamicProperty dynprop in dynprops)

@@ -15,8 +15,7 @@ namespace Glimpse.EPiServer
         {
             Dictionary<string, string> tabData = new Dictionary<string, string>();
 
-            PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
-            PageData currentPageData = new PageData(currentPageRef);
+            PageData currentPageData = EPiServerDataFactory.GetPageData(context.GetHttpContext().Request.RawUrl);
 
             tabData.Add("Page Name", currentPageData.PageName);
             tabData.Add("Page Type", currentPageData.PageTypeName);

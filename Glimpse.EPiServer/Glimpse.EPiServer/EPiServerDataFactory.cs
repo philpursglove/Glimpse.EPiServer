@@ -1,22 +1,18 @@
-﻿
-using EPiServer.Core;
-
-using Glimpse.AspNet.Extensions;
-using Glimpse.Core.Extensibility;
+﻿using EPiServer.Core;
 
 namespace Glimpse.EPiServer
 {
-    static class EPiServerDataFactory
+    internal static class EPiServerDataFactory
     {
-        static PageData GetPageData(ITabContext context)
+        public static PageData GetPageData(string url)
         {
-            PageReference currentPageRef = PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
+            PageReference currentPageRef = PageReference.ParseUrl(url);
             return new PageData(currentPageRef);
         }
 
-        static PageReference GetPageReference(ITabContext context)
+        public static PageReference GetPageReference(string url)
         {
-            return PageReference.ParseUrl(context.GetHttpContext().Request.RawUrl);
+            return PageReference.ParseUrl(url);
         }
     }
 }
