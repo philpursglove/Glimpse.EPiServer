@@ -7,6 +7,7 @@ using EPiServer.DataAbstraction;
 using Glimpse.AspNet.Extensibility;
 using Glimpse.AspNet.Extensions;
 using Glimpse.Core.Extensibility;
+using Glimpse.Core.Tab.Assist;
 
 namespace Glimpse.EPiServer
 {
@@ -14,14 +15,21 @@ namespace Glimpse.EPiServer
     {
         public override object GetData(ITabContext context)
         {
-            Dictionary<string, string> tabData = new Dictionary<string, string>();
+            TabSection episerverTab = Plugin.Create("Section", "Content");
 
             PageData currentPageData = EPiServerDataFactory.GetPageData(context.GetHttpContext().Request.RawUrl);
+            TabSection pageData = new TabSection("Property", "Value");
+            pageData.AddRow().Column("Page Name").Column(currentPageData.PageName);
+            pageData.AddRow().Column("Page Type").Column(currentPageData.PageTypeName);
+            pageData.AddRow()
+                    .Column("Start Publish")
+                    .Column(currentPageData.StartPublish.ToString(CultureInfo.InvariantCulture));
+            pageData.AddRow()
+                    .Column("Stop Publish")
+                    .Column(currentPageData.StopPublish.ToString(CultureInfo.InvariantCulture));
 
-            tabData.Add("Page Name", currentPageData.PageName);
-            tabData.Add("Page Type", currentPageData.PageTypeName);
-            tabData.Add("Start Publish", currentPageData.StartPublish.ToString(CultureInfo.InvariantCulture));
-            tabData.Add("Stop Publish", currentPageData.StopPublish.ToString(CultureInfo.InvariantCulture));
+            episerverTab.Section("Page Information", pageData);
+
 
             // Possible child page types?
             // version
@@ -30,13 +38,17 @@ namespace Glimpse.EPiServer
                 context.GetHttpContext().Request.RawUrl);
             DynamicPropertyCollection dynprops = DynamicProperty.ListForPage(currentPageRef);
 
+            TabSection dynpropData = new TabSection();
+
             foreach (DynamicProperty dynprop in dynprops)
             {
                 PropertyData prop = dynprop.PropertyValue;
-                tabData.Add(prop.Name, prop.Value.ToString());
-            }
 
-            return tabData;
+                dynpropData.AddRow().Column(prop.Name).Column(prop.Value.ToString());
+            }
+            episerverTab.Section("Dynamic Properties", dynpropData);
+
+            return episerverTab;
 
         }
 
