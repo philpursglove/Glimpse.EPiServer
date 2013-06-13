@@ -44,7 +44,7 @@ namespace Glimpse.EPiServer
             {
                 PropertyData prop = dynprop.PropertyValue;
 
-                dynpropData.AddRow().Column(prop.Name).Column(prop.Value.ToString());
+                dynpropData.AddRow().Column(prop.Name).Column(prop.IsNull ? "null" : prop.Value.ToString());
             }
             episerverTab.Section("Dynamic Properties", dynpropData);
 
