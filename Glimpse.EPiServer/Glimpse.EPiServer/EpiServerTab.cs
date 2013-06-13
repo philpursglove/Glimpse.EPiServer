@@ -2,6 +2,7 @@
 using System.Globalization;
 
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 
 using Glimpse.AspNet.Extensibility;
 using Glimpse.AspNet.Extensions;
@@ -9,7 +10,7 @@ using Glimpse.Core.Extensibility;
 
 namespace Glimpse.EPiServer
 {
-    public class PageTab : AspNetTab
+    public class EpiServerTab : AspNetTab
     {
         public override object GetData(ITabContext context)
         {
@@ -25,14 +26,25 @@ namespace Glimpse.EPiServer
             // Possible child page types?
             // version
 
+            PageReference currentPageRef = EPiServerDataFactory.GetPageReference(
+                context.GetHttpContext().Request.RawUrl);
+            DynamicPropertyCollection dynprops = DynamicProperty.ListForPage(currentPageRef);
+
+            foreach (DynamicProperty dynprop in dynprops)
+            {
+                PropertyData prop = dynprop.PropertyValue;
+                tabData.Add(prop.Name, prop.Value.ToString());
+            }
+
             return tabData;
+
         }
 
         public override string Name
         {
             get
             {
-                return "Page Details";
+                return "EPiServer";
             }
         }
 

@@ -60,9 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicPropertiesTab.cs" />
     <Compile Include="EPiServerDataFactory.cs" />
-    <Compile Include="PageTab.cs" />
+    <Compile Include="EpiServerTab.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
