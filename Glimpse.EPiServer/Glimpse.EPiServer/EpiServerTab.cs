@@ -48,6 +48,13 @@ namespace Glimpse.EPiServer
             }
             episerverTab.Section("Dynamic Properties", dynpropData);
 
+            TabSection langData = new TabSection("Property", "Value");
+
+            langData.AddRow().Column("Page Language").Column(currentPageData.Language);
+            langData.AddRow().Column("Is Master Language").Column(currentPageData.IsMasterLanguageBranch ? "Yes" : "No");
+            langData.AddRow().Column("Page Languages").Column(currentPageData.PageLanguages);
+            episerverTab.Section("Languages", langData);
+
             return episerverTab;
 
         }
