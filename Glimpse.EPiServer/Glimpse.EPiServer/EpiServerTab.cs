@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
@@ -19,6 +18,7 @@ namespace Glimpse.EPiServer
 
             PageData currentPageData = EPiServerDataFactory.GetPageData(context.GetHttpContext().Request.RawUrl);
             TabSection pageData = new TabSection("Property", "Value");
+            pageData.AddRow().Column("Name").Column(currentPageData.Name);
             pageData.AddRow().Column("Page Name").Column(currentPageData.PageName);
             pageData.AddRow().Column("Page Type").Column(currentPageData.PageTypeName);
             pageData.AddRow()
